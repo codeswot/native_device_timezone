@@ -20,13 +20,13 @@ class NativeDeviceTimezonePlugin : FlutterPlugin, MethodChannel.MethodCallHandle
 
     override fun onMethodCall(@NonNull call: MethodCall, @NonNull result: MethodChannel.Result) {
         when (call.method) {
-            "getTimezone" -> result.success(getTimezone())
+            "getTimezoneName" -> result.success(getTimezone())
             "getAlarmUri" -> result.success(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM).toString())
-            "drawableToUri" -> {
-                val resourceName = call.arguments as String
-                val resourceId = getResourceIdByName(resourceName)
-                result.success(resourceToUriString(applicationContext, resourceId))
-            }
+            // "drawableToUri" -> {
+            //     val resourceName = call.arguments as String
+            //     val resourceId = getResourceIdByName(resourceName)
+            //     result.success(resourceToUriString(applicationContext, resourceId))
+            // }
             else -> result.notImplemented()
         }
     }
@@ -45,9 +45,9 @@ class NativeDeviceTimezonePlugin : FlutterPlugin, MethodChannel.MethodCallHandle
                 + context.resources.getResourceEntryName(resId))
     }
 
-    private fun getResourceIdByName(resourceName: String): Int {
-        return resources.getIdentifier(resourceName, "drawable", packageName)
-    }
+    // private fun getResourceIdByName(resourceName: String): Int {
+    //     return resources.getIdentifier(resourceName, "drawable", packageName)
+    // }
 
     override fun onDetachedFromEngine(@NonNull binding: FlutterPlugin.FlutterPluginBinding) {
         channel.setMethodCallHandler(null)
